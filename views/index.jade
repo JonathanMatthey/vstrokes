@@ -1,0 +1,27 @@
+section.p1
+  h1= "Hi"
+  br
+  input.name(type="text")
+  br
+  br
+  br
+  a(href="#p2")= "next"
+
+section.p2
+  br
+  br
+  div#ori-plot(style="background-position:-#{emptyPlot.x}px -#{emptyPlot.y}px;")
+  br
+  br
+  br
+  canvas#colors_sketch(data-plot-id="#{emptyPlot._id}",data-plot-x="#{emptyPlot.x}",data-plot-y="#{emptyPlot.y}",width="300",height="100")
+  br
+  br
+  br
+  div.tools
+    a#btn-done-sketch(href="#colors_sketch")= "Done"
+  br
+
+section.p3
+  h1= "Thanks"
+  a(href="#p1")= "draw another"
