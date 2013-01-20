@@ -1,5 +1,5 @@
 {
-    "name": "application-name"
+    "name": "vstrokes"
   , "version": "0.0.1"
   , "private": true
   , "dependencies": {
@@ -7,6 +7,9 @@
     , "stylus": ">= 0.0.1"
     , "jade": ">= 0.0.1"
     , "mongodb": ">= 0.9.6-7"
-
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
   }
 }

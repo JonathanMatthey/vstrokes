@@ -5,8 +5,8 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
 // local connect
-var host2 = 'localhost';
-var port2 = 27017;
+var host;
+var port;
 
 var plotCounter = 1;
 
@@ -39,11 +39,12 @@ function connectToMongoDB(callback){
   }
 }
 
-PlotProvider = function(host, port) {
-  console.log('host');
-  console.log(host2);
-  this.db= new Db('node-mongo-blog', new Server(host2, port2, {auto_reconnect: true}, {}));
-  this.db.open(function(){});
+PlotProvider = function(host2, port2) {
+  host = host2;
+  port = port2;
+
+  // this.db= new Db('node-mongo-blog', new Server(host2, port2, {auto_reconnect: true}, {}));
+  // this.db.open(function(){});
 };
 
 PlotProvider.prototype.dummyData = [];
