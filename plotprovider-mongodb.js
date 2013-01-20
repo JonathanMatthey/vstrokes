@@ -50,6 +50,7 @@ PlotProvider = function(host2, port2) {
 PlotProvider.prototype.dummyData = [];
 
 PlotProvider.prototype.getCollection = function(callback) {
+  console.log('getCollection()');
   connectToMongoDB(function(){
     this.db.collection('plots', function(error, plot_collection) {
       if( error ) callback(error);

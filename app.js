@@ -7,7 +7,7 @@ var ArticleProvider = require('./articleprovider-memory').ArticleProvider;
 console.log('line7');
 var PlotProvider = require('./plotprovider-mongodb').PlotProvider;
 
-var app = module.exports = express.createServer();
+var app = module.exports = express();
 
 // Configuration
 
@@ -48,10 +48,9 @@ app.get('/', function(req, res){
       console.log(emptyPlot.y);
       console.log(emptyPlot.x);
       console.log(emptyPlot.author);
-        res.render('index.jade', { locals: {
+        res.render('index.jade', { 
             title: 'Blog',
             emptyPlot: emptyPlot
-            }
         });
     })
 
@@ -77,12 +76,10 @@ app.post('/addSketch', function(req, res) {
 });
 
 app.get('/canvas', function(req, res){
-  console.log('canvas');
     plotProvider.findAll( function(error,plots){
-        res.render('canvas.jade', { locals: {
+        res.render('canvas.jade', { 
             title: 'Blog',
             plots:plots
-            }
         });
     })
 });
@@ -102,9 +99,7 @@ app.get('/generate-plots', function(req, res){
   console.log(' done - generated ' + dummydata.length + ' plots');
 });
 
-
-
-
-app.listen(3000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
-
+var port = process.env.PORT || 3000;
+app.listen(port, function(){
+  console.log("Express server listening on port %d in %s mode",  port, app.settings.env);
+});

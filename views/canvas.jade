@@ -1,18 +1,21 @@
-=" - set this up on heroku"
-br
-=" - beautify the front end"
-br
-=" - think about stats ? shortest sketch, biggest contributor, longest sketch..."
-br
-=" - test client on iphone / ipad / android devices"
-br
-=" - 48 hour recording of people interating with installation"
+extends layout
 
-h1= "V STROKES"
-a#show-ori-painting(href="#")="Show Original"
-br
-br
-#articles
-  div#canvas
-    - each plot in plots
-      img.plot(style="top:#{plot.y}px;left:#{plot.x}px;",src=plot.image_data)
+block mainContent
+  =" - set this up on heroku"
+  br
+  =" - beautify the front end"
+  br
+  =" - think about stats ? shortest sketch, biggest contributor, longest sketch..."
+  br
+  =" - test client on iphone / ipad / android devices"
+  br
+  =" - 48 hour recording of people interating with installation"
+
+  h1= "V STROKES"
+  a#show-ori-painting(href="#")="Show Original"
+  br
+  br
+  #articles
+    div#canvas
+      - each plot in plots
+        img.plot(style="top:#{plot.y}px;left:#{plot.x}px;",src=plot.image_data)

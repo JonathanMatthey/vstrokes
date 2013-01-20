@@ -1,12 +1,11 @@
 !!!
-html
+html(lang="en")
   head
-    title= title
+    title vstrokes
     link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='/javascripts/jquery.1.9.0.js')
+  body
+    block mainContent
+  footer
+    script(type='text/javascript', src= '//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js')
     script(src='/javascripts/sketch.js')
     script(src='/javascripts/vstrokes.js')
-    script
-      console.log('a');
-
-  body!= body
