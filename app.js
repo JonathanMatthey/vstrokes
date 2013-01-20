@@ -12,7 +12,7 @@ var server = require('http').createServer(app)
   , io = require('socket.io').listen(server);
 
 // socket io server
-server.listen(5050);
+server.listen(7666);
 
 // Configuration
 app.configure(function(){

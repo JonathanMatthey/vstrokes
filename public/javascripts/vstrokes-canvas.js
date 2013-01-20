@@ -11,7 +11,7 @@ $(document).ready(function() {
     }
   });
 
-  var socket = io.connect('http://localhost:5050');
+  var socket = io.connect('http://localhost:7666');
 
   socket.on('news', function (data) {
     console.log(data);
