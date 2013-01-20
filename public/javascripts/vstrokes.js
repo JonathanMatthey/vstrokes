@@ -27,14 +27,4 @@ $(document).ready(function() {
     });
   });
 
-  $("#show-ori-painting").click(function(){
-    console.log('aaa');
-    if ($("#canvas").css('background-image') !== "none"){
-      $("#canvas").css('background-image','');
-    }
-    else{
-      $("#canvas").css('background-image','url(../images/ori-painting.jpg)');
-    }
-  });
-
 });

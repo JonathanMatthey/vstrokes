@@ -1,8 +1,20 @@
 extends layout
 
 block mainContent
-  =" - set this up on heroku"
+  div#empty-plots-count= emptyPlotCount
+  h1= "V STROKES"
+  a#show-ori-painting(href="#")="Show Original"
   br
+  br
+  #articles
+    div#canvas
+      - each plot in plots
+        img.plot(id="#{plot._id}",style="top:#{plot.y}px;left:#{plot.x}px;",src=plot.image_data)
+
+  br
+  br
+  br
+  h3="TODO"
   =" - beautify the front end"
   br
   =" - think about stats ? shortest sketch, biggest contributor, longest sketch..."
@@ -11,11 +23,9 @@ block mainContent
   br
   =" - 48 hour recording of people interating with installation"
 
-  h1= "V STROKES"
-  a#show-ori-painting(href="#")="Show Original"
-  br
-  br
-  #articles
-    div#canvas
-      - each plot in plots
-        img.plot(style="top:#{plot.y}px;left:#{plot.x}px;",src=plot.image_data)
+
+
+
+block jsLibs
+  script(src='http://localhost:5050/socket.io/socket.io.js')
+  script(src='/javascripts/vstrokes-canvas.js')

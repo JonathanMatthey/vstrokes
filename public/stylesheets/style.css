@@ -27,3 +27,7 @@ canvas#colors_sketch {
   height: 100px;
   border: 1px solid #008000;
 }
+#empty-plots-count {
+  font-size: 4em;
+  float: right;
+}

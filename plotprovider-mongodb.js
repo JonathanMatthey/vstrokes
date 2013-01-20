@@ -2,7 +2,8 @@ var mongo = require('mongodb');
 var Db = require('mongodb').Db;
 var Connection = require('mongodb').Connection;
 var Server = require('mongodb').Server;
-var BSON = require('mongodb').BSON;
+// var BSON = require('mongodb').BSON;
+var BSON = mongo.BSONPure;
 var ObjectID = require('mongodb').ObjectID;
 
 // local connect
@@ -51,12 +52,38 @@ PlotProvider = function(host2, port2) {
 PlotProvider.prototype.dummyData = [];
 
 PlotProvider.prototype.getCollection = function(callback) {
-  console.log('getCollection()');
+  console.log(' - getCollection()');
   connectToMongoDB(function(){
     this.db.collection('plots', function(error, plot_collection) {
       if( error ) callback(error);
       else callback(null, plot_collection);
     });
+  });
+};
+
+PlotProvider.prototype.clearCollection = function(callback) {
+  console.log(' - clearCollection()');
+  connectToMongoDB(function(){
+    this.db.collection('plots', function(error, plot_collection) {
+      if( error ) callback(error);
+      plot_collection.remove(function(error, plot_collection){
+        callback(null);
+      });
+    });
+  });
+};
+
+PlotProvider.prototype.getEmptyPlotsCount = function(callback) {
+  this.getCollection(function(error, plot_collection) {
+    if( error ) callback(error)
+    else {
+      // improve this by adding a key / randomindex field to each record / object in DB.
+      // http://cookbook.mongodb.org/patterns/random-attribute/
+      plot_collection.find({"state":"blank"}).count(function (e, count) {
+        console.log(' - empty plots count: ' + count);
+        return callback(null, count);
+      });
+    }
   });
 };
 
@@ -122,12 +149,12 @@ PlotProvider.prototype.updatePlot = function(drawnPlot, callback) {
     this.getCollection(function(error, plot_collection) {
       if( error ) callback(error)
       else {
-
-
-        plot_collection.save(drawnPlot, function() {
+        drawnPlot._id = new BSON.ObjectID(drawnPlot._id);
+        console.log(' - saving drawn plot:');
+        console.log(drawnPlot);
+        plot_collection.save(drawnPlot, {safe:true}, function() {
           callback(null, drawnPlot);
         });
-
       }
     });
 };

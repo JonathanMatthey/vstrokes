@@ -4,13 +4,17 @@
 
 var express = require('express');
 var ArticleProvider = require('./articleprovider-memory').ArticleProvider;
-console.log('line7');
 var PlotProvider = require('./plotprovider-mongodb').PlotProvider;
 
 var app = module.exports = express();
 
-// Configuration
+var server = require('http').createServer(app)
+  , io = require('socket.io').listen(server);
 
+// socket io server
+server.listen(5050);
+
+// Configuration
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -40,9 +44,7 @@ app.get('/', function(req, res){
 
   // 
   // plotProvider.getAvailablePlot();
-
   // 
-
     plotProvider.findEmptyPlot( function(error,emptyPlot){
       console.log('emptyPlot');
       console.log(emptyPlot.y);
@@ -56,32 +58,55 @@ app.get('/', function(req, res){
 
 });
 
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
+
 app.post('/addSketch', function(req, res) {
   
-    // console.log(req.param('_id'));
-    // console.log("image_data:" + req.param('image_data'));
-    // console.log("author:" + req.param('author'));
-    // console.log("completed_at:" );
+  // console.log(req.param('_id'));
+  // console.log("image_data:" + req.param('image_data'));
+  // console.log("author:" + req.param('author'));
+  // console.log("completed_at:" );
 
-    var plotData = {_id: req.param('_id'),
-      x: req.param('x'),
-      y: req.param('y'),
-      author: req.param('author'),
-      image_data: req.param('image_data')
-    };
-    console.log(' plot received - _id:' + plotData._id + ' author:' + plotData.author + ' - x:' + plotData.x + ' y:' + plotData.y);
+  var plotData = {_id: req.param('_id'),
+    x: req.param('x'),
+    y: req.param('y'),
+    author: req.param('author'),
+    image_data: req.param('image_data'),
+    state: "drawn"
+  };
+  console.log(' plot received - _id:' + plotData._id + ' author:' + plotData.author + ' - x:' + plotData.x + ' y:' + plotData.y);
 
-    plotProvider.updatePlot(plotData, function(error, plot){});
-
+  plotProvider.updatePlot(plotData, function(error, plot){
+    plotProvider.getEmptyPlotsCount(function(error, plotCount){
+      // update canvas count
+      io.sockets.emit('news', { 'plot': plot, 'plotCount' : plotCount });
+    });
+  });
 });
 
 app.get('/canvas', function(req, res){
-    plotProvider.findAll( function(error,plots){
-        res.render('canvas.jade', { 
-            title: 'Blog',
-            plots:plots
-        });
-    })
+    plotProvider.getEmptyPlotsCount(function(error, plotCount){
+      // update canvas count
+      plotProvider.findAll( function(error,plots){
+          res.render('canvas.jade', { 
+              title: 'Blog',
+              plots: plots,
+              emptyPlotCount: plotCount
+          });
+      });
+    });
+});
+
+app.get('/clear-plots', function(req, res){
+  console.log('clearing plots');
+  plotProvider.clearCollection(function(error, plots){
+    console.log(' done - clearing plots');
+  }); 
 });
 
 app.get('/generate-plots', function(req, res){
@@ -94,8 +119,9 @@ app.get('/generate-plots', function(req, res){
       dummydata.push({state: "blank", x: i*300, y: j*100, author: null, image_data: null});
     }
   }
+
   console.log(dummydata);
-  new PlotProvider().save(dummydata, function(error, plots){});
+  plotProvider.save(dummydata, function(error, plots){});
   console.log(' done - generated ' + dummydata.length + ' plots');
 });
 
