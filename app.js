@@ -11,9 +11,20 @@ var app = module.exports = express();
 var server = require('http').createServer(app)
   , io = require('socket.io').listen(server);
 
-// socket io server
-server.listen(7666);
+// check we're on heroku
+if (process.env.MONGOLAB_URI !== undefined ){
+  io.configure(function () { 
+    io.set("transports", ["xhr-polling"]); 
+    io.set("polling duration", 10); 
+  });
+}
+else{
+  // local socket io
 
+  // socket io server
+  server.listen(7666);
+
+}
 // Configuration
 app.configure(function(){
   app.set('views', __dirname + '/views');
@@ -64,6 +75,8 @@ io.sockets.on('connection', function (socket) {
     console.log(data);
   });
 });
+
+
 
 app.post('/addSketch', function(req, res) {
   

@@ -11,7 +11,7 @@ $(document).ready(function() {
     }
   });
 
-  var socket = io.connect('http://localhost:7666');
+  var socket = io.connect('http://guarded-atoll-9031.herokuapp.com/');
 
   socket.on('news', function (data) {
     console.log(data);
