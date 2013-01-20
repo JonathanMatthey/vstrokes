@@ -12,9 +12,9 @@ var port;
 var plotCounter = 1;
 
 function connectToMongoDB(callback){
-    // if (process.env.MONGOLAB_URI !== undefined ){
+    if (process.env.MONGOLAB_URI !== undefined ){
 
-    var mongostr = "mongodb://nodejitsu_braveheart1723:8b9b92n85ldlsh5529mercpfha@ds043947.mongolab.com:43947/nodejitsu_braveheart1723_nodejitsudb4998841041";//process.env.MONGOLAB_URI;
+    var mongostr = process.env.MONGOLAB_URI;
 
     mongo.connect(mongostr, {}, function(error, db)
     {       
@@ -30,14 +30,14 @@ function connectToMongoDB(callback){
       });
       callback();
     });
-  // }
-  // else{
-  //   // local connect
-  //   this.db= new Db('node-mongo-blog', new Server(host, port, {auto_reconnect: true}, {}));
-  //   this.db.open(function(){
-  //     callback();
-  //   });
-  // }
+  }
+  else{
+    // local connect
+    this.db= new Db('node-mongo-blog', new Server(host, port, {auto_reconnect: true}, {}));
+    this.db.open(function(){
+      callback();
+    });
+  }
 }
 
 PlotProvider = function(host2, port2) {
