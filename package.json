@@ -1,15 +1,19 @@
 {
-    "name": "vstrokes"
-  , "version": "0.0.1"
-  , "private": true
-  , "dependencies": {
-    "express": "3.0.0rc4"
-    , "stylus": ">= 0.0.1"
-    , "jade": ">= 0.0.1"
-    , "mongodb": "1.1.7"
-  },
-  "engines": {
-    "node": "0.8.x",
-    "npm": "1.1.x"
-  }
+    "name": "vstrokes",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "3.0.0rc4",
+        "stylus": ">= 0.0.1",
+        "jade": ">= 0.0.1",
+        "mongodb": "1.1.7"
+    },
+    "engines": {
+        "node": "0.8.x",
+        "npm": "1.1.x"
+    },
+    "subdomain": "braveheart1723.vstrokes",
+    "scripts": {
+        "start": "app.js"
+    }
 }
