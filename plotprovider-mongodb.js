@@ -10,6 +10,35 @@ var port2 = 27017;
 
 var plotCounter = 1;
 
+function connectToMongoDB(callback){
+    if (process.env.MONGOLAB_URI !== undefined ){
+
+    var mongostr = process.env.MONGOLAB_URI;
+
+    mongo.connect(mongostr, {}, function(error, db)
+    {       
+      console.log('error');
+      console.log(error);
+      console.log('db');
+      console.log("connected, db: " + db);
+
+      this.db = db;
+
+      this.db.addListener("error", function(error){
+        console.log("Error connecting to MongoLab");
+      });
+      callback();
+    });
+  }
+  else{
+    // local connect
+    this.db= new Db('node-mongo-blog', new Server(host, port, {auto_reconnect: true}, {}));
+    this.db.open(function(){
+      callback();
+    });
+  }
+}
+
 PlotProvider = function(host, port) {
   console.log('host');
   console.log(host2);
@@ -20,9 +49,11 @@ PlotProvider = function(host, port) {
 PlotProvider.prototype.dummyData = [];
 
 PlotProvider.prototype.getCollection = function(callback) {
-  this.db.collection('plots', function(error, plot_collection) {
-    if( error ) callback(error);
-    else callback(null, plot_collection);
+  connectToMongoDB(function(){
+    this.db.collection('plots', function(error, plot_collection) {
+      if( error ) callback(error);
+      else callback(null, plot_collection);
+    });
   });
 };
 
