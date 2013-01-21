@@ -11,8 +11,6 @@ $(document).ready(function() {
     $('#colors_sketch').sketch();
   });
 
-  console.log('vstrokes - done');
-
   $("#btn-done-sketch").click(function(){
     var image_data = $("#colors_sketch").data('sketch').el.toDataURL('mime/png');
     console.log($("#colors_sketch").data('plot-id'));
@@ -22,9 +20,23 @@ $(document).ready(function() {
       data:  { _id: $("#colors_sketch").data('plot-id'), x: $("#colors_sketch").data('plot-x'), y: $("#colors_sketch").data('plot-y'), author: "John", image_data: image_data },
       success: function(){
         console.log('success ! ');
+        $("#p1").fadeOut(300,function(){
+          $("#thanks").fadeIn(300,function(){
+          });
+        });
       },
       dataType: "json"
     });
+    $("#p1").fadeOut(300,function(){
+      $("#thanks").fadeIn(300,function(){
+      });
+    });
   });
+
+  $("#draw-another").click(function(){
+    $("#thanks").fadeOut(300,function(){
+    });
+  });
+
 
 });
