@@ -1,11 +1,119 @@
+/************Reset**************/
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html,
+body,
+div,
+object,
+iframe,
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+header,
+footer,
+nav,
+section,
+article,
+hgroup,
+figure {
+  display: block;
+}
+legend {
+  display: none;
+}
+/************End Reset**************/
+/************Global**************/
 body {
+  background: #fff;
+  color: #000;
+  font: 100%/1.4 "HelveticaNeue", "Helvetica", "Arial", sans-serif;
+  padding: 0;
   padding: 0 10px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  -webkit-text-size-adjust: none;
 }
 a {
-  color: #00b7ff;
+  color: #808080;
+  text-decoration: none;
 }
+a:hover,
+a:focus {
+  color: #e51837;
+}
+p {
+  margin: 0 0 1em;
+}
+img,
+object,
+video {
+  max-width: 100%;
+  border: 0;
+}
+a img {
+  border: 0;
+  outline: 0;
+}
+h1 {
+  font-size: 3em;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2em;
+}
+h2 {
+  font-size: 2em;
+  line-height: 1.1;
+  margin-bottom: 0.2em;
+}
+h3 {
+  font-weight: normal;
+  line-height: 1.1;
+  padding-bottom: 0.4em;
+  border-bottom: 1px solid #ccc;
+}
+h1 a,
+h2 a,
+h3 a {
+  display: block;
+  color: #000;
+}
+h1 a:hover,
+h2 a:hover,
+h3 a:hover {
+  color: #e51837;
+}
+blockquote {
+  border-left: 0.5em solid #ddd;
+  padding-left: 1em;
+  margin-left: 1em;
+}
+small {
+  color: #e51837;
+}
+input[type=search] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+::-webkit-input-placeholder {
+  color: #808080;
+}
+:-moz-placeholder {
+  color: #808080;
+}
+/************End Global**************/
 #ori-plot {
   background-image: url("../images/ori-painting.jpg");
   width: 300px;
@@ -26,9 +134,393 @@ img.plot {
 canvas#colors_sketch {
   width: 300px;
   height: 100px;
-  border: 1px solid #008000;
+  border: 1px solid #ccc;
 }
 #empty-plots-count {
   font-size: 4em;
   float: right;
+}
+/************Classes**************/
+.inactive {
+  color: #ddd;
+}
+/************End Classes**************/
+/************Structure**************/
+.container {
+  max-width: 70em;
+  margin: 0 auto;
+  padding: 0 1em;
+  overflow: hidden;
+}
+div[role=main] {
+  padding-bottom: 1em;
+}
+/*Footer*/
+/*End Footer*/
+/*Grid*/
+.grid {
+  margin: 0 -1em;
+  overflow: hidden;
+}
+.grid:target -webkit-animation: fadeout 5s1ease-out {
+  -moz-animation: fadeout 5s 1 ease-out;
+  -o-animation: fadeout 5s 1 ease-out;
+  animation: fadeout 5s 1 ease-out;
+}
+.grid > h2 {
+  margin-left: 0.45em;
+}
+.grid > section {
+  padding: 1em 1em 0.5em;
+}
+.grid > section:target -webkit-animation: fadeout 5s1ease-out {
+  -moz-animation: fadeout 5s 1 ease-out;
+  -o-animation: fadeout 5s 1 ease-out;
+  animation: fadeout 5s 1 ease-out;
+}
+.grid ul {
+  overflow: hidden;
+}
+.grid ul li {
+  margin-bottom: 0.3em;
+}
+.featured:after {
+  content: "*";
+  color: #e51837;
+}
+/*Fluid*/
+.fluid {
+  display: block;
+  margin: 0 auto;
+  max-width: 40em;
+}
+/*Homepage*/
+.home h1 {
+  margin-bottom: 0.2em;
+}
+#intro {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  -webkit-animation: fadeoutOpacity ease-out;
+  -moz-animation: fadeoutOpacity ease-out;
+  -o-animation: fadeoutOpacity ease-out;
+  animation: fadeoutOpacity ease-out;
+  -webkit-animation-duration: 800ms;
+  -webkit-animation-fill: 1s;
+/* 0 is the default */
+  -webkit-animation-delay: 2s;
+/* 0 is the default */
+  -webkit-animation-fill-mode: forwards;
+  z-index: 1;
+}
+#p1 {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  opacity: 0;
+  -webkit-animation: fadeinOpacity ease-out;
+  -moz-animation: fadeinOpacity ease-out;
+  -o-animation: fadeinOpacity ease-out;
+  animation: fadeinOpacity ease-out;
+  -webkit-animation-duration: 500ms;
+  -webkit-animation-fill: 1s;
+/* 0 is the default */
+  -webkit-animation-delay: 2.5s;
+/* 0 is the default */
+  -webkit-animation-fill-mode: forwards;
+  z-index: 9;
+}
+div.tools a {
+  padding: 5px;
+  padding: 10px 15px;
+  margin-right: 10px;
+  background-color: #f7f7f7;
+  float: left;
+}
+div.tools a.next {
+  float: right;
+}
+#ori-plot {
+  margin: 10px 0;
+}
+#colors_sketch {
+  margin: 0 0 10px 0;
+}
+.ani {
+  position: relative;
+  height: 15em;
+  margin: 1em 0 0;
+  width: 100%;
+  z-index: 0;
+}
+.ani div {
+  width: 100%;
+}
+.ani div b {
+  display: block;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  bottom: 5%;
+  left: 5%;
+  background: rgba(229,24,55,0.22);
+}
+#p2,
+#p3 {
+  display: none;
+}
+/******Media Queries*******/
+/* Medium Screens*/
+/* Large Screens */
+/* CSS Animations */
+@-webkit-keyframes fadeoutOpacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fadeoutOpacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@-o-keyframes fadeoutOpacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+/* CSS Animations */
+@-webkit-keyframes fadeinOpacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeinOpacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadeinOpacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+/* CSS Animations */
+@-webkit-keyframes fadeout {
+  0% {
+    background: #fff;
+  }
+
+  10% {
+    background: #eee;
+  }
+
+  100% {
+    background: #fff;
+  }
+}
+@-moz-keyframes fadeout {
+  0% {
+    background: #fff;
+  }
+
+  10% {
+    background: #eee;
+  }
+
+  100% {
+    background: #fff;
+  }
+}
+@-o-keyframes fadeout {
+  0% {
+    background: #fff;
+  }
+
+  10% {
+    background: #eee;
+  }
+
+  100% {
+    background: #fff;
+  }
+}
+@-moz-keyframes fadeoutOpacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fadeoutOpacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@-o-keyframes fadeoutOpacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@-ms-keyframes fadeoutOpacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeoutOpacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fadeinOpacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeinOpacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadeinOpacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-ms-keyframes fadeinOpacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeinOpacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeout {
+  0% {
+    background: #fff;
+  }
+
+  10% {
+    background: #eee;
+  }
+
+  100% {
+    background: #fff;
+  }
+}
+@-webkit-keyframes fadeout {
+  0% {
+    background: #fff;
+  }
+
+  10% {
+    background: #eee;
+  }
+
+  100% {
+    background: #fff;
+  }
+}
+@-o-keyframes fadeout {
+  0% {
+    background: #fff;
+  }
+
+  10% {
+    background: #eee;
+  }
+
+  100% {
+    background: #fff;
+  }
+}
+@-ms-keyframes fadeout {
+  0% {
+    background: #fff;
+  }
+
+  10% {
+    background: #eee;
+  }
+
+  100% {
+    background: #fff;
+  }
+}
+@keyframes fadeout {
+  0% {
+    background: #fff;
+  }
+
+  10% {
+    background: #eee;
+  }
+
+  100% {
+    background: #fff;
+  }
 }

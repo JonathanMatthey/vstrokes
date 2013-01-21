@@ -1,7 +1,19 @@
 extends layout
 
 block mainContent
-  section.p1
+
+  section#intro
+    img(src="/images/intro.jpg")
+
+  section#p1
+    div#ori-plot(style="background-position:-#{emptyPlot.x}px -#{emptyPlot.y}px;")
+    canvas#colors_sketch(data-plot-id="#{emptyPlot._id}",data-plot-x="#{emptyPlot.x}",data-plot-y="#{emptyPlot.y}",width="300",height="100")
+    div.tools
+      a(href="#colors_sketch",data-tool="marker")= "Pen"
+      a(href="#colors_sketch",data-tool="eraser")= "Eraser"
+      a#btn-done-sketch.next(href="#colors_sketch")= "Done"
+
+  section#p2
     h1= "Hi"
     br
     input.name(type="text")
@@ -10,26 +22,10 @@ block mainContent
     br
     a(href="#p2")= "next"
 
-  section.p2
-    br
-    br
-    div#ori-plot(style="background-position:-#{emptyPlot.x}px -#{emptyPlot.y}px;")
-    br
-    br
-    br
-    canvas#colors_sketch(data-plot-id="#{emptyPlot._id}",data-plot-x="#{emptyPlot.x}",data-plot-y="#{emptyPlot.y}",width="300",height="100")
-    br
-    br
-    br
-    div.tools
-      a#btn-done-sketch(href="#colors_sketch")= "Done"
-      a#btn-done-sketch(href="#colors_sketch",data-tool="marker")= "Pen"
-      a#btn-done-sketch(href="#colors_sketch",data-tool="eraser")= "Eraser"
-    br
-
-  section.p3
+  section#p3
     h1= "Thanks"
     a(href="#p1")= "draw another"
+
 
 block jsLibs
   script(src='/javascripts/vstrokes.js')
