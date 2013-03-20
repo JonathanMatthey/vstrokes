@@ -6,6 +6,10 @@ var express = require('express');
 var ArticleProvider = require('./articleprovider-memory').ArticleProvider;
 var PlotProvider = require('./plotprovider-mongodb').PlotProvider;
 
+var plot_width = 40;
+var plot_height = 30;
+
+
 var app = module.exports = express();
 
 var server = require('http').createServer(app)
@@ -126,16 +130,37 @@ app.get('/generate-plots', function(req, res){
   console.log('generating plots:');
   var dummydata = [];
 
-  for ( i = 0; i < 4; i++){
-    for ( j = 0; j < 9; j++){
+  for ( i = 0; i < 16; i++){
+    for ( j = 0; j < 52; j++){
       /* Lets bootstrap with dummy data */
-      dummydata.push({state: "blank", x: i*300, y: j*100, author: null, image_data: null});
+      dummydata.push({state: "blank", x: i*plot_width, y: j*plot_height, author: null, image_data: null});
     }
   }
 
   console.log(dummydata);
   plotProvider.save(dummydata, function(error, plots){});
   console.log(' done - generated ' + dummydata.length + ' plots');
+});
+
+
+app.get('/reset-plots', function(req, res){
+  console.log('clearing plots');
+  plotProvider.clearCollection(function(error, plots){
+    console.log(' done - clearing plots');
+  console.log('generating plots:');
+  var dummydata = [];
+
+  for ( i = 0; i < 40; i++){
+    for ( j = 0; j < 40; j++){
+      /* Lets bootstrap with dummy data */
+      dummydata.push({state: "blank", x: i*plot_width, y: j*plot_height, author: null, image_data: "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="});
+    }
+  }
+
+  console.log(dummydata);
+  plotProvider.save(dummydata, function(error, plots){});
+  console.log(' done - generated ' + dummydata.length + ' plots');
+  }); 
 });
 
 var port = process.env.PORT || 3000;

@@ -27,6 +27,7 @@ $(document).ready(function() {
       },
       dataType: "json"
     });
+    $("#intro").hide();
     $("#p1").fadeOut(300,function(){
       $("#thanks").fadeIn(300,function(){
       });
@@ -35,6 +36,7 @@ $(document).ready(function() {
 
   $("#draw-another").click(function(){
     $("#thanks").fadeOut(300,function(){
+      document.location.reload(true);
     });
   });
 

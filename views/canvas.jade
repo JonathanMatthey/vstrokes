@@ -2,15 +2,16 @@ extends layout
 
 block mainContent
   div#empty-plots-count= emptyPlotCount
-  h1= "V STROKES"
+  //h1= "V STROKES"
   a#show-ori-painting(href="#")="Show Original"
-  br
   br
   #articles
     div#canvas
       - each plot in plots
         img.plot(id="#{plot._id}",style="top:#{plot.y}px;left:#{plot.x}px;",src=plot.image_data)
 
+  br
+  br
   br
   br
   br
@@ -27,5 +28,5 @@ block mainContent
 
 
 block jsLibs
-  script(src='/socket.io/socket.io.js')
+  script(src='http://localhost:7666/socket.io/socket.io.js')
   script(src='/javascripts/vstrokes-canvas.js')
